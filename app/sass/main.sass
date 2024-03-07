@@ -1,0 +1,122 @@
+@mixin font($f-name, $f-style, $f-weight, $f-url)
+	@font-face
+		font-family: $f-name
+		font-style: $f-style
+		font-weight: $f-weight
+		src: url($f-url) format('woff2')
+		font-display: swap
+
+
+@include font('Raleway', normal, 100, '../fonts/raleway-v22-cyrillic-100.woff2')
+@include font('Raleway', normal, 300, '../fonts/raleway-v22-cyrillic-300.woff2')
+
+$fonts: 'Raleway', sans-serif
+
+*
+	box-sizing: border-box
+	margin: 0
+	padding: 0
+
+:root
+	--index: calc(1vw + 1vh)
+	--gutter: 30px
+	--side-small: 26
+	--side-big: 36
+	--depth: 5700px
+	--transition: .75s cubic-bezier(.075, .50, 0, 1)
+
+h1, h2, h3, h4
+	font-weight: 300
+	text-transform: uppercase
+	width: min-content
+	line-height: 1
+
+body
+	font-family: $fonts
+	line-height: 1.75
+	background-color: #000
+	color: #fff
+	font-size: calc(var(--index) * .8)
+	height: var(--depth)
+	font-weight: 300
+
+.container
+	width: 100%
+	height: 100%
+	position: fixed
+	perspective: 1500px
+
+.gallery
+	transform-style: preserve-3d
+	height: 100%
+
+.frame
+	position: absolute
+	display: flex
+	justify-content: center
+	align-items: center
+	width: 100%
+	height: 100%
+	transition: var(--transition), opacity .75s ease
+	will-change: transform
+	transform-style: preserve-3d
+
+	h2
+		text-align: center
+		font-size: calc( var(--index) * 3.3 )
+
+	&__media
+		position: relative
+		width: calc( var(--index) * var(--side-small) )
+		height: calc( var(--index) * var(--side-big) )
+		background-position: center
+		background-size: cover
+
+		&--left
+			right: calc( var(--side-small) / 2 * var(--index) + var(--gutter) )
+
+		&--right
+			left: calc( var(--side-small) / 2 * var(--index) + var(--gutter) )
+
+	&--bg
+		background-color: rgb(0 0 0 / .7)
+	
+	video.freme__media
+		width: calc( var(--index) * var(--side-big) )
+		height: calc( var(--index) * var(--side-small) )
+
+	video.freme__media--left
+		left: calc( var(--side-big) / 2 * var(--index) + var(--gutter) )
+
+	video.freme__media--right
+		right: calc( var(--side-big) / 2 * var(--index) + var(--gutter) )
+
+	&__text--right
+		position: relative
+		left: 18vw
+
+		p
+			width: 30vw
+
+	&__text--left
+		position: relative
+		right: 18vw
+
+		p
+			width: 30vw
+			margin-top: 5vh
+
+	h3
+		font-size: calc( var(--index) * 3  )
+
+
+.sound
+	position: fixed
+	bottom: 5vh
+	right: 5vw
+	cursor: pointer
+	width: 26px
+	transition: all .25s
+
+	&--paused
+		opacity: 0.5
